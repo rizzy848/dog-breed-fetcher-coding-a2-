@@ -35,6 +35,8 @@ public class Main {
         } catch (BreedFetcher.BreedNotFoundException e) {
             // Breed not found → return 0 as per spec
             return 0;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

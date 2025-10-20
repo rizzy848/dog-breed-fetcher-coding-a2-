@@ -46,8 +46,9 @@ public class DogApiBreedFetcher implements BreedFetcher {
                  }
                  return subBreedList;
              }
-         }catch (Exception e) {
-             // Treat network or I/O errors as "breed not found" per assignment spec
+         }catch (IOException e) {
+             throw new BreedNotFoundException(breed);
+         } catch (Exception e) {
              throw new BreedNotFoundException(breed);
          }
     }
@@ -59,7 +60,11 @@ public class DogApiBreedFetcher implements BreedFetcher {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            if (response.body() != null) {
+                return response.body().string();
+            } else {
+                throw new IOException("Empty response body");
+            }
         }
     }
 
