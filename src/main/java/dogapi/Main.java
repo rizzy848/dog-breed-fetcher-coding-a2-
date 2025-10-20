@@ -32,8 +32,8 @@ public class Main {
                 return 0;
             }
             return subBreeds.size();
-        } catch (BreedFetcher.BreedNotFoundException | IOException e) {
-            // Breed not found or API/network error: treat as 0 sub-breeds
+        } catch (BreedFetcher.BreedNotFoundException e) {
+            // Breed not found → return 0 as per spec
             return 0;
         }
     }
